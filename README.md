@@ -40,3 +40,8 @@ LSTM modeli genel fiyat eğilimini takip edebilmiş, ancak yüksek oynaklık dö
 Proje raporuna aşağıdaki dosyadan ulaşabilirsiniz:
 
 [LSTM_THYAO_Rapor.pdf](LSTM_THYAO_Rapor.pdf)
+## Kod Dosyası
+
+Modelin Python koduna aşağıdaki dosyadan ulaşabilirsiniz:
+
+[lstm_thyao.py](lstm_thyao.py)
