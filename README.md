@@ -1,47 +1,68 @@
 # LSTM ile THYAO Hisse Senedi Kapanış Fiyatı Tahmini
 
-Bu projede, Borsa İstanbul’da işlem gören Türk Hava Yolları A.O. (THYAO) hisse senedinin kapanış fiyatı LSTM yapay sinir ağı modeli ile tahmin edilmiştir.
+Bu projede Borsa İstanbul'da işlem gören Türk Hava Yolları A.O. (THYAO) hisse senedinin kapanış fiyatı, Uzun Kısa Süreli Bellek Ağı (Long Short-Term Memory - LSTM) kullanılarak tahmin edilmiştir.
 
-## Proje Hakkında
+Çalışma kapsamında yapay sinir ağlarının teorik altyapısı incelenmiş ve zaman serisi tahmin problemlerinde yaygın olarak kullanılan LSTM mimarisi finansal veriler üzerinde uygulanmıştır.
 
-Çalışmada 2016-2025 dönemine ait günlük THYAO hisse senedi verileri kullanılmıştır. Modelde açılış fiyatı, en yüksek fiyat, en düşük fiyat, kapanış fiyatı ve işlem hacmi değişkenleri girdi olarak alınmış; hedef değişken olarak bir sonraki günün kapanış fiyatı belirlenmiştir.
+---
 
-## Kullanılan Yöntem
+## Proje Amacı
 
-- Yapay Sinir Ağları
-- LSTM modeli
-- Zaman serisi tahmini
-- Min-Max ölçeklendirme
-- 60 günlük zaman penceresi
+Bu çalışmanın amacı, geçmiş dönem finansal verileri kullanarak THYAO hisse senedinin bir sonraki güne ait kapanış fiyatını tahmin etmektir.
 
-## Kullanılan Değişkenler
+Finansal zaman serileri doğrusal olmayan ve yüksek oynaklığa sahip yapılar olduğundan klasik regresyon yöntemleri yerine derin öğrenme tabanlı LSTM modeli tercih edilmiştir.
 
-- Open
-- High
-- Low
-- Close
-- Volume
+---
 
-## Model Performansı
+## Veri Seti
 
-Model performansı aşağıdaki ölçütlerle değerlendirilmiştir:
+Projede 2023-2025 dönemine ait günlük THYAO verileri kullanılmıştır.
 
-- MAE: 15.36
-- MSE: 289.27
-- RMSE: 17.01
-- R-kare: 0.138
+Veri setinde aşağıdaki değişkenler bulunmaktadır:
 
-## Sonuç
+- Open (Açılış Fiyatı)
+- High (En Yüksek Fiyat)
+- Low (En Düşük Fiyat)
+- Close (Kapanış Fiyatı)
+- Volume (İşlem Hacmi)
 
-LSTM modeli genel fiyat eğilimini takip edebilmiş, ancak yüksek oynaklık dönemlerinde tahmin hataları artmıştır. R-kare değerinin düşük olması, modelin test dönemindeki fiyat değişimlerini sınırlı düzeyde açıklayabildiğini göstermektedir.
+Başlangıçta 749 gözlem bulunan veri seti, veri temizleme ve özellik mühendisliği işlemlerinden sonra 730 gözleme düşürülmüştür.
 
-## Rapor
+---
 
-Proje raporuna aşağıdaki dosyadan ulaşabilirsiniz:
+## Özellik Mühendisliği
 
-[LSTM_THYAO_Rapor.pdf](LSTM_THYAO_Rapor.pdf)
-## Kod Dosyası
+Model performansını artırmak amacıyla aşağıdaki ek değişkenler oluşturulmuştur:
 
-Modelin Python koduna aşağıdaki dosyadan ulaşabilirsiniz:
+### Lag Değişkenleri
+- Close_lag_1
+- Close_lag_3
+- Close_lag_5
+- Close_lag_10
 
-[lstm_thyao.py](lstm_thyao.py)
+### Hareketli Ortalamalar
+- MA_5
+- MA_10
+- MA_20
+
+### Teknik Özellikler
+- Return (Günlük Getiri)
+
+Tüm değişkenler `MinMaxScaler` kullanılarak normalize edilmiştir.
+
+---
+
+## Model Mimarisi
+
+Model aşağıdaki mimariden oluşmaktadır:
+
+- LSTM (64 nöron)
+- Dropout
+- LSTM (32 nöron)
+- Dropout
+- Dense (1)
+
+Toplam eğitilebilir parametre sayısı:
+
+```text
+32,417
