@@ -27,7 +27,16 @@ The following variables were used:
 * Trading Volume
 
 The original dataset contained **749 observations**. After preprocessing and feature engineering, **730 observations** remained for model training and evaluation.
-Data Source: Investing.com
+## Data Source
+
+The dataset used in this project was collected from Yahoo Finance using the `yfinance` Python library.
+
+Ticker Symbol: `THYAO.IS`
+
+Period: January 2023 - January 2025
+
+Source:
+https://finance.yahoo.com/quote/THYAO.IS
 ---
 
 ## Feature Engineering
