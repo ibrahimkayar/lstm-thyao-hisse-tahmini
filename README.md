@@ -27,7 +27,7 @@ The following variables were used:
 * Trading Volume
 
 The original dataset contained **749 observations**. After preprocessing and feature engineering, **730 observations** remained for model training and evaluation.
-
+Data Source: Investing.com
 ---
 
 ## Feature Engineering
